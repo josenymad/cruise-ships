@@ -1,10 +1,15 @@
-class CruiseShip {
-    constructor(startingPort) {
-        this.startingPort = startingPort;
+const Port = require('./port');
+
+class Ship {
+    constructor(currentPort) {
+        this.currentPort = currentPort;
     }
     setSail() {
-        this.startingPort = null;
+        this.currentPort = null;
+    }
+    dock(port) {
+        this.currentPort = port;
     }
 }
 
-module.exports = CruiseShip;
+module.exports = Ship;
