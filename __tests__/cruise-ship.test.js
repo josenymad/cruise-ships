@@ -1,13 +1,19 @@
 const CruiseShip = require('../src/cruise-ship');
 
 describe('cruise ship constructor', () => {
-    it('creating cruise ship as an object', () => {
-        const cruiseShip = new CruiseShip();
-        expect(cruiseShip).toBeInstanceOf(Object);
+    it('cruise ship is an object', () => {
+        const ship = new CruiseShip();
+        expect(ship).toBeInstanceOf(Object);
     });
 
-    it('gives cruise ship a starting port', () => {
-        const cruiseShip = new CruiseShip('Port Able');
-        expect(cruiseShip.startingPort).toBe('Port Able');
+    it('cruise ship has a starting port', () => {
+        const ship = new CruiseShip('Port Able');
+        expect(ship.startingPort).toBe('Port Able');
+    });
+
+    it('can set sail', () => {
+        const ship = new CruiseShip('Port Able');
+        ship.setSail();
+        expect(ship.startingPort).toBeFalsy();
     });
 });
