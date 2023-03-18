@@ -1,4 +1,4 @@
-const Ship = require('../src/cruise-ship');
+const Ship = require('../src/ship');
 const Port = require('../src/port');
 
 describe('cruise ship constructor', () => {
@@ -12,16 +12,15 @@ describe('cruise ship constructor', () => {
         expect(ship.currentPort).toBe('Port 1');
     });
 
-    it('can set sail', () => {
-        const ship = new Ship('Port 1');
-        ship.setSail();
-        expect(ship.currentPort).toBeFalsy();
-    });
-
     it('takes a port object as current port', () => {
         const port = new Port('Port 1');
         const ship = new Ship(port);
         expect(ship.currentPort).toBe(port);
+    });
+
+    it('has a previous port property', () => {
+        const ship = new Ship();
+        expect(ship.previousPort).toBeNull();
     });
 });
 
@@ -33,5 +32,20 @@ describe('docking', () => {
         const port2 = new Port('Port 2');
         ship.dock(port2);
         expect(ship.currentPort).toBe(port2);
+    });
+});
+
+describe('set sail', () => {
+    it('can set sail', () => {
+        const ship = new Ship('Port 1');
+        ship.setSail();
+        expect(ship.currentPort).toBeFalsy();
+    });
+
+    it('sets previous port property to the current port', () => {
+        const port1 = new Port('Port 1');
+        const ship = new Ship(port1);
+        ship.setSail();
+        expect(ship.previousPort).toBe(port1);
     });
 });
