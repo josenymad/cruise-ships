@@ -42,6 +42,23 @@ describe('cruise ship constructor', () => {
         const ship = new Ship(itinerary);
         expect(ship.currentPort).toBe(port1);
     });
+
+    it('has an itinerary count property starting from 0', () => {
+        const port1 = new Port('Port 1');
+        const port2 = new Port('Port 2');
+        const itinerary = new Itinerary([port1, port2]);
+        const ship = new Ship(itinerary);
+        expect(ship).toHaveProperty('itineraryCount');
+    });
+
+    it('keeps track of itinerary progress', () => {
+        const port1 = new Port('Port 1');
+        const port2 = new Port('Port 2');
+        const itinerary = new Itinerary([port1, port2]);
+        const ship = new Ship(itinerary);
+        ship.setSail();
+        expect(ship.itineraryCount).toBe(0.5);
+    });
 });
 
 describe('set sail', () => {
