@@ -1,16 +1,15 @@
-const Port = require('./port');
-
 class Ship {
-    constructor(currentPort) {
-        this.currentPort = currentPort;
+    constructor(itinerary) {
+        this.itinerary = itinerary;
+        this.currentPort = null;
         this.previousPort = null;
     }
     setSail() {
         this.previousPort = this.currentPort;
         this.currentPort = null;
     }
-    dock(port) {
-        this.currentPort = port;
+    dock() {
+        this.currentPort = this.itinerary.ports[0];
     }
 }
 

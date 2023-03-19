@@ -1,5 +1,6 @@
 const Ship = require('../src/ship');
 const Port = require('../src/port');
+const Itinerary = require('../src/itinerary');
 
 describe('cruise ship constructor', () => {
     it('is an object', () => {
@@ -7,31 +8,31 @@ describe('cruise ship constructor', () => {
         expect(ship).toBeInstanceOf(Object);
     });
 
-    it('has a currrent port', () => {
-        const ship = new Ship('Port 1');
-        expect(ship.currentPort).toBe('Port 1');
-    });
-
-    it('takes a port object as current port', () => {
-        const port = new Port('Port 1');
-        const ship = new Ship(port);
-        expect(ship.currentPort).toBe(port);
+    it('has a current port', () => {
+        const ship = new Ship();
+        expect(ship).toHaveProperty('currentPort');
     });
 
     it('has a previous port property', () => {
         const ship = new Ship();
-        expect(ship.previousPort).toBeNull();
+        expect(ship).toHaveProperty('previousPort');
+    });
+
+    it('has an itinerary', () => {
+        const itinerary = new Itinerary();
+        const ship = new Ship(itinerary);
+        expect(ship.itinerary).toBe(itinerary);
     });
 });
 
 describe('docking', () => {
-    it('docks at given port', () => {
+    it('docks at next port in itinerary', () => {
         const port1 = new Port('Port 1');
-        const ship = new Ship(port1);
-        ship.setSail();
         const port2 = new Port('Port 2');
-        ship.dock(port2);
-        expect(ship.currentPort).toBe(port2);
+        const itinerary = new Itinerary([port1, port2]);
+        const ship = new Ship(itinerary);
+        ship.dock();
+        expect(ship.currentPort).toBe(port1);
     });
 });
 
@@ -44,7 +45,10 @@ describe('set sail', () => {
 
     it('sets previous port property to the current port', () => {
         const port1 = new Port('Port 1');
-        const ship = new Ship(port1);
+        const port2 = new Port('Port 2');
+        const itinerary = new Itinerary([port1, port2]);
+        const ship = new Ship(itinerary);
+        ship.dock();
         ship.setSail();
         expect(ship.previousPort).toBe(port1);
     });
