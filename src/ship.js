@@ -8,11 +8,10 @@ class Ship {
     setSail() {
         this.previousPort = this.currentPort;
         this.currentPort = null;
-        this.itineraryCount =+ 0.5;
+        this.itineraryCount += 1;
     }
     dock() {
-        const nextPort = this.itineraryCount + 0.5;
-        this.currentPort = this.itinerary.ports[nextPort];
+        this.currentPort = this.itinerary.ports[this.itineraryCount];
     }
 }
 

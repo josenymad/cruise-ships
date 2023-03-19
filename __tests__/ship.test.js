@@ -43,7 +43,7 @@ describe('cruise ship constructor', () => {
         expect(ship.currentPort).toBe(port1);
     });
 
-    it('has an itinerary count property starting from 0', () => {
+    it('has an itinerary count property', () => {
         const port1 = new Port('Port 1');
         const port2 = new Port('Port 2');
         const itinerary = new Itinerary([port1, port2]);
@@ -57,7 +57,7 @@ describe('cruise ship constructor', () => {
         const itinerary = new Itinerary([port1, port2]);
         const ship = new Ship(itinerary);
         ship.setSail();
-        expect(ship.itineraryCount).toBe(0.5);
+        expect(ship.itineraryCount).toBe(1);
     });
 });
 
@@ -85,10 +85,13 @@ describe('docking', () => {
     it('docks at next port in itinerary', () => {
         const port1 = new Port('Port 1');
         const port2 = new Port('Port 2');
-        const itinerary = new Itinerary([port1, port2]);
+        const port3 = new Port('Port 3');
+        const itinerary = new Itinerary([port1, port2, port3]);
         const ship = new Ship(itinerary);
         ship.setSail();
         ship.dock();
-        expect(ship.currentPort).toBe(port2);
+        ship.setSail();
+        ship.dock();
+        expect(ship.currentPort).toBe(port3);
     });
 });
