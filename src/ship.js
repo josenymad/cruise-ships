@@ -6,9 +6,13 @@ class Ship {
         this.previousPort = null;
     }
     setSail() {
-        this.previousPort = this.currentPort;
-        this.currentPort = null;
-        this.itineraryCount += 1;
+        if (this.itineraryCount >= (this.itinerary.ports.length - 1)) {
+            throw new Error('End of itinerary reached');
+        } else {
+            this.previousPort = this.currentPort;
+            this.currentPort = null;
+            this.itineraryCount += 1;
+        }
     }
     dock() {
         this.currentPort = this.itinerary.ports[this.itineraryCount];

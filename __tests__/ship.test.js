@@ -54,10 +54,14 @@ describe('cruise ship constructor', () => {
     it('keeps track of itinerary progress', () => {
         const port1 = new Port('Port 1');
         const port2 = new Port('Port 2');
-        const itinerary = new Itinerary([port1, port2]);
+        const port3 = new Port('Port 3');
+        const itinerary = new Itinerary([port1, port2, port3]);
         const ship = new Ship(itinerary);
         ship.setSail();
         expect(ship.itineraryCount).toBe(1);
+        ship.dock();
+        ship.setSail();
+        expect(ship.itineraryCount).toBe(2);
     });
 });
 
@@ -79,6 +83,16 @@ describe('set sail', () => {
         ship.setSail();
         expect(ship.previousPort).toBe(port1);
     });
+
+    it('cannot sail further than its itinerary', () => {
+        const port1 = new Port('Port 1');
+        const port2 = new Port('Port 2');
+        const itinerary = new Itinerary([port1, port2]);
+        const ship = new Ship(itinerary);
+        ship.setSail();
+        ship.dock();
+        expect(() => ship.setSail()).toThrowError('End of itinerary reached');
+      });
 });
 
 describe('docking', () => {
