@@ -1,5 +1,5 @@
-const Itinerary = require('../src/itinerary');
 const Port = require('../src/port');
+const Itinerary = require('../src/itinerary');
 
 describe('itinerary constructor', () => {
     it('is an object', () => {
