@@ -59,9 +59,17 @@ describe('cruise ship constructor', () => {
         const ship = new Ship(itinerary);
         ship.setSail();
         expect(ship.itineraryCount).toBe(1);
+
         ship.dock();
         ship.setSail();
         expect(ship.itineraryCount).toBe(2);
+    });
+
+    it('gets added to port on instantiation', () => {
+        const port1 = new Port('Port 1');
+        const itinerary = new Itinerary([port1]);
+        const ship = new Ship(itinerary);
+        expect(port1.ships).toContain(ship);
     });
 });
 
@@ -93,6 +101,15 @@ describe('set sail', () => {
         ship.dock();
         expect(() => ship.setSail()).toThrowError('End of itinerary reached');
       });
+
+      it('removes ship from previous port\'s ships array', () => {
+        const port1 = new Port('Port 1');
+        const port2 = new Port('Port 2');
+        const itinerary = new Itinerary([port1, port2]);
+        const ship = new Ship(itinerary);
+        ship.setSail();
+        expect(port1.ships).not.toContain(ship);
+      });
 });
 
 describe('docking', () => {
@@ -107,5 +124,15 @@ describe('docking', () => {
         ship.setSail();
         ship.dock();
         expect(ship.currentPort).toBe(port3);
+    });
+
+    it('adds ship to port\'s ships array', () => {
+        const port1 = new Port('Port 1');
+        const port2 = new Port('Port 2');
+        const itinerary = new Itinerary([port1, port2]);
+        const ship = new Ship(itinerary);
+        ship.setSail();
+        ship.dock();
+        expect(port2.ships).toContain(ship);
     });
 });

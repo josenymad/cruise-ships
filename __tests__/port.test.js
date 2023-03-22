@@ -38,7 +38,7 @@ describe('method to add ships which have docked', () => {
         ship.setSail();
         ship.dock();
         port2.addShip(ship);
-        expect(port2.ships).toEqual([ship]);
+        expect(port2.ships).toContain(ship);
     });
 });
 
@@ -66,6 +66,6 @@ describe('method to remove ships which have set sail', () => {
         port2.addShip(ship);
         ship.setSail();
         port2.removeShip(ship);
-        expect(port2.ships).toEqual([]);
+        expect(port2.ships).not.toContain(ship);
     });
 });

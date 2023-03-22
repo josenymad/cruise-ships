@@ -4,6 +4,7 @@ class Ship {
         this.itineraryCount = 0;
         this.currentPort = itinerary.ports[0];
         this.previousPort = null;
+        this.currentPort.addShip(this);
     }
     setSail() {
         if (this.itineraryCount >= (this.itinerary.ports.length - 1)) {
@@ -12,10 +13,12 @@ class Ship {
             this.previousPort = this.currentPort;
             this.currentPort = null;
             this.itineraryCount += 1;
+            this.previousPort.removeShip(this);
         }
     }
     dock() {
         this.currentPort = this.itinerary.ports[this.itineraryCount];
+        this.currentPort.addShip(this);
     }
 }
 

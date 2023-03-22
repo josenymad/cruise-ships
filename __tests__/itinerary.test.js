@@ -7,11 +7,15 @@ describe('itinerary constructor', () => {
         expect(itinerary).toBeInstanceOf(Object);
     });
 
-    it('has a ports property defaulting to an empty array when no arguments are passed', () => {
+    it('has a ports property', () => {
         const itinerary = new Itinerary();
         expect(itinerary).toHaveProperty('ports');
-        expect(itinerary.ports).toStrictEqual([]);
     });
+
+    it('ports property defaults to an empty array whne nothing is passed', () => {
+        const itinerary = new Itinerary();
+        expect(itinerary.ports).toStrictEqual([]);
+    })
 
     it('takes an array of ports and adds them to ports property', () => {
         const port1 = new Port('Port 1');
