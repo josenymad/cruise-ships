@@ -37,12 +37,11 @@ describe('method to add ships which have docked', () => {
         const ship = new Ship(itinerary);
         ship.setSail();
         ship.dock();
-        port2.addShip(ship);
         expect(port2.ships).toContain(ship);
     });
 });
 
-describe('method to remove ships which have set sail', () => {
+describe('method to remove ship from ships array', () => {
     it('checks ship has set sail before removing from ships array', () => {
         const port1 = new Port('Port 1');
         const port2 = new Port('Port 2');
@@ -51,7 +50,6 @@ describe('method to remove ships which have set sail', () => {
         const ship = new Ship(itinerary);
         ship.setSail();
         ship.dock();
-        port2.addShip(ship);
         expect(port2.removeShip(ship)).toEqual('This ship is still docked at this port');
     });
 
@@ -63,9 +61,7 @@ describe('method to remove ships which have set sail', () => {
         const ship = new Ship(itinerary);
         ship.setSail();
         ship.dock();
-        port2.addShip(ship);
         ship.setSail();
-        port2.removeShip(ship);
         expect(port2.ships).not.toContain(ship);
     });
 });
