@@ -18,8 +18,8 @@ describe('itinerary constructor', () => {
     })
 
     it('takes an array of ports and adds them to ports property', () => {
-        const port1 = new Port('Port 1');
-        const port2 = new Port('Port 2');
+        const port1 = jest.fn();
+        const port2 = jest.fn();
         const itinerary = new Itinerary([port1, port2]);
         expect(itinerary.ports).toStrictEqual([port1, port2]);
     });
