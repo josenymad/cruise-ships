@@ -37,22 +37,26 @@ describe('Ship instantiation', () => {
         it('has an itinerary count property starting at 0', () => {
             expect(ship.itineraryCount).toEqual(0);
         });
-
-        it('gets added to port on instantiation', () => {
-            expect(port1.ships).toContain(ship);
-        });
     });
 });
 
 describe('Ships sailing and docking', () => {
-    let port1;
-    let port2;
     let itinerary;
     let ship;
 
     beforeEach(() => {
-        port1 = new Port('Port 1');
-        port2 = new Port('Port 2');
+        port1 = {
+            addShip: jest.fn(),
+            removeShip: jest.fn(),
+            name: 'Port 1',
+            ships: [],
+        };
+        port2 = {
+            addShip: jest.fn(),
+            removeShip: jest.fn(),
+            name: 'Port 2',
+            ships: [],
+        };
         itinerary = new Itinerary([port1, port2]);
         ship = new Ship(itinerary);
     });
@@ -61,6 +65,10 @@ describe('Ships sailing and docking', () => {
         it('keeps track of itinerary progress', () => {
             ship.setSail();
             expect(ship.itineraryCount).toBe(1);
+        });
+
+        it('gets added to port on instantiation', () => {
+            expect(port1.addShip).toHaveBeenCalledWith(ship);
         });
     });
 
@@ -83,7 +91,7 @@ describe('Ships sailing and docking', () => {
 
         it('removes ship from previous port\'s ships array', () => {
             ship.setSail();
-            expect(port1.ships).not.toContain(ship);
+            expect(port1.removeShip).toHaveBeenCalledWith(ship);
         });
     });
 
@@ -97,7 +105,7 @@ describe('Ships sailing and docking', () => {
         it('adds ship to port\'s ships array', () => {
             ship.setSail();
             ship.dock();
-            expect(port2.ships).toContain(ship);
+            expect(port2.addShip).toHaveBeenCalledWith(ship);
         });
     });
 });
