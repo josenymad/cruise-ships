@@ -9,7 +9,9 @@ describe('Ship instantiation', () => {
 
     beforeEach(() => {
         port1 = new Port('Port 1');
-        itinerary = new Itinerary([port1]);
+        itinerary = {
+            ports: [port1],
+        };
         ship = new Ship(itinerary);
     });
 
@@ -57,7 +59,9 @@ describe('Ships sailing and docking', () => {
             name: 'Port 2',
             ships: [],
         };
-        itinerary = new Itinerary([port1, port2]);
+        itinerary = {
+            ports: [port1, port2],
+        };
         ship = new Ship(itinerary);
     });
 
