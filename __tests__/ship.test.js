@@ -2,22 +2,18 @@ const Ship = require('../src/ship');
 const Port = require('../src/port');
 const Itinerary = require('../src/itinerary');
 
-describe('Ships', () => {
+describe('Ship instantiation', () => {
     let port1;
-    let port2;
-    let port3;
     let itinerary;
     let ship;
 
     beforeEach(() => {
         port1 = new Port('Port 1');
-        port2 = new Port('Port 2');
-        port3 = new Port('Port 3');
-        itinerary = new Itinerary([port1, port2, port3]);
+        itinerary = new Itinerary([port1]);
         ship = new Ship(itinerary);
     });
 
-    describe('cruise ship constructor', () => {
+    describe('ship constructor', () => {
         it('is an object', () => {
             expect(ship).toBeInstanceOf(Object);
         });
@@ -38,21 +34,33 @@ describe('Ships', () => {
             expect(ship.currentPort).toBe(port1);
         });
 
-        it('has an itinerary count property', () => {
-            expect(ship).toHaveProperty('itineraryCount');
-        });
-
-        it('keeps track of itinerary progress', () => {
-            ship.setSail();
-            expect(ship.itineraryCount).toBe(1);
-
-            ship.dock();
-            ship.setSail();
-            expect(ship.itineraryCount).toBe(2);
+        it('has an itinerary count property starting at 0', () => {
+            expect(ship.itineraryCount).toEqual(0);
         });
 
         it('gets added to port on instantiation', () => {
             expect(port1.ships).toContain(ship);
+        });
+    });
+});
+
+describe('Ships sailing and docking', () => {
+    let port1;
+    let port2;
+    let itinerary;
+    let ship;
+
+    beforeEach(() => {
+        port1 = new Port('Port 1');
+        port2 = new Port('Port 2');
+        itinerary = new Itinerary([port1, port2]);
+        ship = new Ship(itinerary);
+    });
+
+    describe('ship constructor', () => {
+        it('keeps track of itinerary progress', () => {
+            ship.setSail();
+            expect(ship.itineraryCount).toBe(1);
         });
     });
 
@@ -70,8 +78,6 @@ describe('Ships', () => {
         it('cannot sail further than its itinerary', () => {
             ship.setSail();
             ship.dock();
-            ship.setSail();
-            ship.dock();
             expect(() => ship.setSail()).toThrowError('End of itinerary reached');
         });
 
@@ -85,9 +91,7 @@ describe('Ships', () => {
         it('docks at next port in itinerary', () => {
             ship.setSail();
             ship.dock();
-            ship.setSail();
-            ship.dock();
-            expect(ship.currentPort).toBe(port3);
+            expect(ship.currentPort).toBe(port2);
         });
 
         it('adds ship to port\'s ships array', () => {

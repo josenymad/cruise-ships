@@ -4,16 +4,12 @@ const Itinerary = require('../src/itinerary');
 
 describe('Ports', () => {
     let port1;
-    let port2;
-    let port3;
     let itinerary;
     let ship;
 
     beforeEach(() => {
         port1 = new Port('Port 1');
-        port2 = new Port('Port 2');
-        port3 = new Port('Port 3');
-        itinerary = new Itinerary([port1, port2, port3]);
+        itinerary = new Itinerary([port1]);
         ship = new Ship(itinerary);
     });
 
@@ -29,6 +25,20 @@ describe('Ports', () => {
         it('has a ships property', () => {
             expect(port1).toHaveProperty('ships');
         });
+    });
+});
+
+describe('Ports adding and removing ships', () => {
+    let port1;
+    let port2;
+    let itinerary;
+    let ship;
+
+    beforeEach(() => {
+        port1 = new Port('Port 1');
+        port2 = new Port('Port 2');
+        itinerary = new Itinerary([port1, port2]);
+        ship = new Ship(itinerary);
     });
 
     describe('method to add ships which have docked', () => {
@@ -55,8 +65,7 @@ describe('Ports', () => {
         it('removes a ship which set sail from ships property array', () => {
             ship.setSail();
             ship.dock();
-            ship.setSail();
-            expect(port2.ships).not.toContain(ship);
+            expect(port1.ships).not.toContain(ship);
         });
     });
 });
