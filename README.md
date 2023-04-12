@@ -11,4 +11,4 @@ The concepts I've learnt throughout this project are:
 - Mocks
 - Spies
 
-To see the end result of this project, please see https://github.com/josenymad/cruise-ships-gui 
+This project served as the foundation for a more advanced browser version which you can see here: https://github.com/josenymad/cruise-ships-gui 
